@@ -1,0 +1,97 @@
+# k3s (lightweight Kubernetes) module for NixOS
+# Provides k3s server configuration with management tools
+{ config, pkgs, lib, ... }:
+
+{
+  services.k3s = {
+    enable = true;
+    role = "server";
+
+    extraFlags = toString [
+      # Disable built-in traefik - we'll deploy our own
+      "--disable=traefik"
+      # Disable servicelb - use NodePort/HostPort instead
+      "--disable=servicelb"
+      # Store k3s data on ZFS for persistence and snapshots
+      "--data-dir=/mnt/hermes/docker/k3s"
+      # Write kubeconfig with proper permissions
+      "--write-kubeconfig-mode=0644"
+      # Extend NodePort range for soju (6697) and enshrouded (15636/15637)
+      "--service-node-port-range=53-32767"
+    ];
+
+    containerdConfigTemplate = ''
+      {{ template "base" . }}
+
+      [plugins."io.containerd.grpc.v1.cri".containerd.runtimes.nvidia]
+      privileged_without_host_devices = false
+      runtime_engine = ""
+      runtime_root = ""
+      runtime_type = "io.containerd.runc.v2"
+    '';
+
+  };
+
+  # k3s should start after ZFS pools are imported and CDI specs are generated
+  systemd.services.k3s = {
+    after = [ "zfs.target" "network-online.target" "nvidia-container-toolkit-cdi-generator.service" ];
+    wants = [ "zfs.target" "network-online.target" "nvidia-container-toolkit-cdi-generator.service" ];
+  };
+
+  # Drain k3s node before shutdown/reboot to prevent phantom pods
+  # Without this, pods using hostPath volumes and GPU resources leave stale
+  # entries in etcd that cause duplicate pod attempts on next boot.
+  systemd.services.k3s-node-drain = {
+    description = "Drain k3s node before shutdown";
+    after = [ "k3s.service" ];
+    before = [ "shutdown.target" "reboot.target" "halt.target" ];
+    wantedBy = [ "multi-user.target" ];
+    unitConfig = {
+      DefaultDependencies = false;
+    };
+    serviceConfig = {
+      Type = "oneshot";
+      RemainAfterExit = true;
+      Environment = "KUBECONFIG=/etc/rancher/k3s/k3s.yaml";
+      ExecStart = "${pkgs.coreutils}/bin/true";
+      ExecStop = pkgs.writeShellScript "k3s-drain" ''
+        ${pkgs.kubectl}/bin/kubectl cordon "${config.networking.hostName}"
+        ${pkgs.kubectl}/bin/kubectl drain "${config.networking.hostName}" \
+          --delete-emptydir-data \
+          --ignore-daemonsets \
+          --force \
+          --grace-period=30 \
+          --timeout=60s
+      '';
+      TimeoutStopSec = 90;
+    };
+  };
+
+  # Trust k3s network interfaces for firewall
+  networking.firewall = {
+    trustedInterfaces = [
+      "cni0" # Container network interface
+      "flannel.1" # Flannel overlay network
+    ];
+
+    # k3s API server port
+    allowedTCPPorts = [ 6443 ];
+  };
+
+  # Kubernetes management tools
+  environment.systemPackages = with pkgs; [
+    kubectl # Kubernetes CLI
+    kubernetes-helm # Helm package manager
+    kustomize # Standalone kustomize (needed for exec plugins)
+    kustomize-sops # KSOPS - SOPS integration for kustomize
+    k9s # Terminal UI for Kubernetes
+    stern # Multi-pod log tailing
+    kubectx # Switch between clusters/namespaces
+  ];
+
+  # Set KUBECONFIG environment variable system-wide
+  environment.variables = {
+    KUBECONFIG = "/etc/rancher/k3s/k3s.yaml";
+  };
+
+}
