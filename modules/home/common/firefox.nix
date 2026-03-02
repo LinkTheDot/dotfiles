@@ -88,8 +88,11 @@
 
           # Behavior settings
           "browser.startup.page" = 3; # 0=blank, 1=home, 2=last visited, 3=resume previous
-          "browser.startup.homepage" = "https://start.duckduckgo.com";
-          "browser.newtabpage.enabled" = false;
+          "sidebar.revamp" = false;
+          "sidebar.verticalTabs" = false;
+          "sidebar.main.tools" = "";
+          "browser.startup.homepage" = "about:home";
+          "browser.newtabpage.enabled" = true;
           "browser.newtabpage.activity-stream.showSponsored" = false;
           "browser.newtabpage.activity-stream.showSponsoredTopSites" = false;
           "browser.showQuitWarning" = false;
@@ -104,7 +107,8 @@
           "accessibility.force_disabled" = 1; # Disable accessibility services if not needed
 
           # Disable all Firefox Home content
-          "browser.newtabpage.activity-stream.feeds.topsites" = false;
+          "browser.newtabpage.activity-stream.feeds.topsites" = true;
+          "browser.newtabpage.activity-stream.topSitesRows" = 4;
           "browser.newtabpage.activity-stream.showSearch" = false;
           "browser.newtabpage.activity-stream.feeds.section.topstories" = false;
           "browser.newtabpage.activity-stream.feeds.section.highlights" = false;
@@ -115,7 +119,7 @@
           "browser.newtabpage.activity-stream.feeds.weather" = false;
           "browser.newtabpage.activity-stream.system.showWeather" = false;
           "browser.newtabpage.activity-stream.feeds.snippets" = false;
-          "browser.newtabpage.activity-stream.feeds.section.aboutprovider" = false;
+          "browser.newtabpage.activity-stream.feeds.section.aboutprovider" = true;
           "browser.aboutHomeSnippets.updateUrl" = "";
           "browser.newtabpage.activity-stream.feeds.asrouterfeed" = false;
           "browser.newtabpage.activity-stream.showSponsoredCheckboxes" = false;
@@ -152,8 +156,8 @@
         extensions.packages = with pkgs.nur.repos.rycee.firefox-addons; [
           ublock-origin
           darkreader
-          privacy-badger
-          decentraleyes
+          proton-pass
+          tab-session-manager
         ];
 
         # User chrome CSS customization (optional)
@@ -170,7 +174,7 @@
       DisableTelemetry = true;
       DisableFirefoxStudies = true;
       DisablePocket = true;
-      DisableFirefoxAccounts = true;
+      DisableFirefoxAccounts = false;
       DisableFirefoxScreenshots = true;
       DisplayMenuBar = "default-off";
       SearchBar = "unified";

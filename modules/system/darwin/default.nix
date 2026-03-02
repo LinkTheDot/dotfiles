@@ -30,7 +30,24 @@ in
     finder.FXPreferredViewStyle = "icnv";
     screencapture.location = "~/Pictures/screenshots";
     LaunchServices.LSQuarantine = false;
+    ".GlobalPreferences"."com.apple.mouse.scaling" = 1.3;
+    CustomUserPreferences.".GlobalPreferences"."com.apple.mouse.linear" = true;
+    CustomUserPreferences.".GlobalPreferences"."com.apple.scrollwheel.scaling" = -1.0;
+    CustomUserPreferences."com.apple.timezone.auto".Active = true;
+    CustomUserPreferences."com.apple.symbolichotkeys".AppleSymbolicHotKeys."64" = {
+      enabled = true;
+      value.parameters = [ 32 49 262144 ];
+      value.type = "standard";
+    };
+    CustomUserPreferences."com.apple.symbolichotkeys".AppleSymbolicHotKeys."30" = {
+      enabled = true;
+      value.parameters = [ 115 1 1179648 ];
+      value.type = "standard";
+    };
   };
+
+  # Display sleep after 15 minutes (security requirement)
+  power.sleep.display = 15;
 
   # Create /etc/zshrc that loads the nix-darwin environment
   programs.zsh.enable = true;

@@ -6,6 +6,7 @@
     ../common/ghostty.nix
     ../common/databases.nix
     ../darwin/karabiner.nix
+    ../darwin/wallpaper.nix
   ];
 
   home.packages = with pkgs; [

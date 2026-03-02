@@ -6,3 +6,4 @@ cursor-style = block
 cursor-style-blink = false
 shell-integration-features = no-cursor
 quit-after-last-window-closed = true
+keybind = performable:ctrl+c=copy_to_clipboard

@@ -3,5 +3,7 @@
 {
   imports = [
     ./karabiner.nix
+    ./linearmouse.nix
+    ./wallpaper.nix
   ];
 }

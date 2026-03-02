@@ -11,6 +11,10 @@
     ".rustfmt.toml".source = "${sourceRoot}/config/rustfmt.toml";
   };
 
+  xdg.configFile = {
+    "assets".source = config.lib.file.mkOutOfStoreSymlink "${userConfig.dotfilesPath}/assets";
+  };
+
   home.sessionVariables = {
     EDITOR = "nvim";
     VISUAL = "nvim";

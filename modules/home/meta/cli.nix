@@ -5,6 +5,7 @@
 
   imports = [
     ../common/bat.nix
+    ../common/difi.nix
     ../common/fish.nix
     ../common/git.nix
     ../common/jujutsu.nix
@@ -20,11 +21,13 @@
   ];
 
   home.packages = with pkgs; [
+    chafa
     chromedriver
     docker
     docker-buildx
     docker-compose
     doctl
+    ffmpeg
     gh-dash
     htop
     imagemagick
@@ -32,6 +35,7 @@
     k9s
     kubectl
     kubectx
+    natscli
     ngrok
     nix-diff
     openssl
