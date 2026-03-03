@@ -54,7 +54,7 @@ return {
     },
     quickfile = { enabled = true },
     scope = { enabled = true },
-    statuscolumn = { enabled = true },
+    statuscolumn = { enabled = false },
     words = { enabled = true },
   },
   keys = {

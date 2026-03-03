@@ -23,6 +23,9 @@
     templ
     terraform-ls
     vscode-langservers-extracted
+    rust-analyzer
+    rustc
+    cargo
     yaml-language-server
 
     # Formatters

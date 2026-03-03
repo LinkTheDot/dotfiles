@@ -38,18 +38,23 @@
         # Configure Firefox settings (about:config)
         settings = {
           # Disable search suggestions
-          "browser.search.suggest.enabled" = false;
-          "browser.urlbar.suggest.searches" = false;
+          "browser.search.suggest.enabled" = true;
+          "browser.urlbar.suggest.searches" = true;
           "browser.urlbar.suggest.quicksuggest.sponsored" = false;
           "browser.urlbar.suggest.quicksuggest.nonsponsored" = false;
           "browser.urlbar.trending.featureGate" = false;
           "browser.urlbar.suggest.trending" = false;
           "browser.urlbar.suggest.engines" = false;
           "browser.urlbar.suggest.topsites" = false;
-          "browser.urlbar.suggest.history" = false;
+          "browser.urlbar.suggest.history" = true;
           "browser.urlbar.suggest.bookmark" = false;
           "browser.urlbar.suggest.openpage" = false;
           "browser.urlbar.suggest.quickactions" = false;
+
+          # History settings
+          "places.history.enabled" = true;
+          "privacy.sanitize.sanitizeOnShutdown" = false;
+          "browser.privatebrowsing.autostart" = false;
 
           "keyword.enabled" = true;
           "browser.fixup.alternate.enabled" = true;
@@ -87,7 +92,7 @@
           "layout.css.prefers-color-scheme.content-override" = 0; # 0=dark, 1=light, 2=system
 
           # Behavior settings
-          "browser.startup.page" = 3; # 0=blank, 1=home, 2=last visited, 3=resume previous
+          "browser.startup.page" = 1; # 0=blank, 1=home, 2=last visited, 3=resume previous
           "sidebar.revamp" = false;
           "sidebar.verticalTabs" = false;
           "sidebar.main.tools" = "";
@@ -108,7 +113,7 @@
 
           # Disable all Firefox Home content
           "browser.newtabpage.activity-stream.feeds.topsites" = true;
-          "browser.newtabpage.activity-stream.topSitesRows" = 4;
+          "browser.newtabpage.activity-stream.topSitesRows" = 2;
           "browser.newtabpage.activity-stream.showSearch" = false;
           "browser.newtabpage.activity-stream.feeds.section.topstories" = false;
           "browser.newtabpage.activity-stream.feeds.section.highlights" = false;

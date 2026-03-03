@@ -21,6 +21,7 @@
   ];
 
   home.packages = with pkgs; [
+    awscli2
     chafa
     chromedriver
     docker
@@ -35,10 +36,13 @@
     k9s
     kubectl
     kubectx
+    nats-server
     natscli
     ngrok
     nix-diff
+    nodePackages.npm
     openssl
+    pgcli
     sops
     terraform
     tldr

@@ -19,6 +19,7 @@ in
     controlcenter.BatteryShowPercentage = true;
     NSGlobalDomain.KeyRepeat = 2;
     NSGlobalDomain.InitialKeyRepeat = 15;
+    NSGlobalDomain.NSAutomaticPeriodSubstitutionEnabled = false;
     dock.autohide = true;
     dock.orientation = "left";
     dock.magnification = false;
@@ -31,6 +32,8 @@ in
     screencapture.location = "~/Pictures/screenshots";
     LaunchServices.LSQuarantine = false;
     ".GlobalPreferences"."com.apple.mouse.scaling" = 1.3;
+    CustomUserPreferences.".GlobalPreferences"."AppleMenuBarVisibleInFullscreen" = false;
+    CustomUserPreferences.".GlobalPreferences"."AutoHideMenuBarInFullScreen" = true;
     CustomUserPreferences.".GlobalPreferences"."com.apple.mouse.linear" = true;
     CustomUserPreferences.".GlobalPreferences"."com.apple.scrollwheel.scaling" = -1.0;
     CustomUserPreferences."com.apple.timezone.auto".Active = true;
@@ -48,6 +51,7 @@ in
 
   # Display sleep after 15 minutes (security requirement)
   power.sleep.display = 15;
+  power.sleep.computer = 15;
 
   # Create /etc/zshrc that loads the nix-darwin environment
   programs.zsh.enable = true;
