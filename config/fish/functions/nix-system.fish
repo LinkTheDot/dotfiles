@@ -7,8 +7,6 @@ function nix-system
     set rebuild_cmd "darwin-rebuild"
     # Map hostname to flake configuration
     switch $hostname_val
-      case macbook-m3
-        set flake_config "macbook"
       case workmac
         set flake_config "workmac"
       case '*'
@@ -18,10 +16,8 @@ function nix-system
   else if is_linux
     set rebuild_cmd "nixos-rebuild"
     switch $hostname_val
-      case deadmau5
-        set flake_config "deadmau5"
-      case dosvec
-        set flake_config "dosvec"
+      case personal_computer
+        set flake_config "personal_computer"
       case '*'
         echo "Unknown Linux hostname: $hostname_val"
         return 1
@@ -33,5 +29,5 @@ function nix-system
   end
 
   echo "Using configuration: $flake_config"
-  sudo $rebuild_cmd switch --flake ~/.dotfiles#$flake_config --impure
+  sudo $rebuild_cmd switch --flake ~/.dotfiles#$flake_config
 end

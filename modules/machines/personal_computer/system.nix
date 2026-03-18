@@ -14,7 +14,7 @@ in
     ../../system/meta/cli-nixos.nix
   ];
 
-  services.dnsmasq-resolver.enable = true;
+  # services.dnsmasq-resolver.enable = true;
 
   # Tailscale as exit node and route advertiser for remote LAN access
   # services.tailscale = {
@@ -77,5 +77,5 @@ in
   # this value at the release version of the first install of this system.
   # Before changing this value read the documentation for this option
   # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
-  system.stateVersion = "24.05";
+  system.stateVersion = "25.05";
 }

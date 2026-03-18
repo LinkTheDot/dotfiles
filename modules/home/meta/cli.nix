@@ -36,6 +36,8 @@
     k9s
     kubectl
     kubectx
+    lazygit
+    lazydocker
     nats-server
     natscli
     ngrok

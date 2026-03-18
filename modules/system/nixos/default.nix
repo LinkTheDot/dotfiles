@@ -1,3 +1,5 @@
+# TODO: Clean this file.
+
 { config, pkgs, lib, userConfig, ... }:
 
 {
@@ -13,8 +15,8 @@
     package = pkgs.nixVersions.stable;
     settings = {
       experimental-features = [ "nix-command" "flakes" ];
-      trusted-users = [ "root" "looank" ]
-        auto-optimise-store = true;
+      trusted-users = [ "root" "looank" ];
+      auto-optimise-store = true;
     };
 
     gc = {

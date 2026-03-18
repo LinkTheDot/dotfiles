@@ -21,27 +21,41 @@
 
   outputs = { self, nixpkgs, nixos-wsl, home-manager, nix-darwin, nur, ... }@inputs:
     let
-      localConfig = import ./modules/users/default.nix {
-        sourceRoot = ./.;
-      };
+      supportedSystems = [ "x86_64-linux" "aarch64-darwin" ];
 
-      mkUserConfig = { system }:
-        localConfig.getUserConfig { inherit system; };
+      forAllSystems = nixpkgs.lib.genAttrs supportedSystems;
 
-      mkSystemConfig = name: localConfig.getSystemConfig // {
-        hostName = name;
-      };
-
-      nixpkgsFor = system: import nixpkgs {
+      nixpkgsFor = forAllSystems (system: import nixpkgs {
         inherit system;
         config.allowUnfree = true;
         overlays = [ nur.overlays.default ];
+      });
+
+      userInfo = {
+        username = "looank";
+        fullName = "looank";
+        userEmail = "linkthedot@users.noreply.github.com";
+        gpgKey = "";
       };
+
+      mkSystemConfig = name: { hostName = name; computerName = name; };
+
+      # Helper: build userConfig from system type
+      mkUserConfig = { system }:
+        let
+          homeBase =
+            if builtins.elem system [ "aarch64-darwin" "x86_64-darwin" ]
+            then "/Users" else "/home";
+        in
+        userInfo // {
+          homeDirectory = "${homeBase}/${userInfo.username}";
+          dotfilesPath = "${homeBase}/${userInfo.username}/.dotfiles";
+        };
 
       mkHome = { name, system }:
         let
           isDarwin = builtins.elem system [ "aarch64-darwin" "x86_64-darwin" ];
-          osModules =
+          osSpecificModules =
             if isDarwin then [
               ./modules/home/darwin.nix
             ] else [
@@ -49,8 +63,8 @@
             ];
         in
         home-manager.lib.homeManagerConfiguration {
-          pkgs = nixpkgsFor system;
-          modules = osModules ++ [
+          pkgs = nixpkgsFor.${system};
+          modules = osSpecificModules ++ [
             ./modules/home/default.nix
             ./modules/machines/${name}/home.nix
           ];
@@ -92,6 +106,7 @@
           system = "x86_64-linux";
           modules = [
             nixos-wsl.nixosModules.default
+            # ./modules/system/nixos/default.nix <- Clean this and switch to this default
             ./modules/machines/personal_computer/system.nix
           ];
           specialArgs = {
