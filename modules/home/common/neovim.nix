@@ -26,6 +26,8 @@
     rust-analyzer
     rustc
     cargo
+    rustfmt
+    clippy
     yaml-language-server
 
     # Formatters
