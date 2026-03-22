@@ -24,6 +24,12 @@ in
       default = lib.mkDefault true;
       description = "Start Postgres at boot";
     };
+
+    port = lib.mkOption {
+      type = lib.types.port;
+      default = 5432;
+      description = "Port for Postgres to listen on.";
+    };
   };
 
   config = lib.mkIf config.programs.postgres.enable {
@@ -36,6 +42,8 @@ in
           "${postgresBin}/postgres"
           "-D"
           postgresDataDir
+          "-p"
+          (toString config.programs.postgres.port)
         ];
         RunAtLoad = config.programs.postgres.runAtLoad;
         KeepAlive = {
@@ -52,7 +60,7 @@ in
       };
       Service = {
         Type = "notify";
-        ExecStart = "${postgresBin}/postgres -D ${postgresDataDir}";
+        ExecStart = "${postgresBin}/postgres -D ${postgresDataDir} -p ${toString config.programs.postgres.port}";
         Restart = "on-failure";
         RestartSec = "5s";
       };

@@ -7,7 +7,7 @@ function nix-system
     set rebuild_cmd "darwin-rebuild"
     # Map hostname to flake configuration
     switch $hostname_val
-      case workmac
+      case workmac macbook
         set flake_config "workmac"
       case '*'
         echo "Unknown macOS hostname: $hostname_val"
@@ -16,7 +16,7 @@ function nix-system
   else if is_linux
     set rebuild_cmd "nixos-rebuild"
     switch $hostname_val
-      case personal_computer
+      case personalcomputer 
         set flake_config "personal_computer"
       case '*'
         echo "Unknown Linux hostname: $hostname_val"

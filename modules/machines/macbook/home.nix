@@ -23,5 +23,6 @@
   programs.postgres = {
     enable = true;
     runAtLoad = true;
+    port = 5433;
   };
 }

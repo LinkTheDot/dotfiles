@@ -13,6 +13,7 @@
   ];
 
   home.packages = with pkgs; [
+    claude-code
     file
     ollama-cuda
     vmtouch
