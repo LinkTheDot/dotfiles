@@ -5,9 +5,9 @@ return {
   ---@type snacks.Config
   opts = {
     bigfile = { enabled = true },
-    image = { enabled = true },
+    image = { enabled = vim.uv.os_uname().sysname == "Darwin" },
     dashboard = {
-      enabled = true,
+      enabled = vim.uv.os_uname().sysname == "Darwin",
       sections = {
         {
           section = "header",
@@ -172,6 +172,7 @@ return {
     vim.api.nvim_create_autocmd("User", {
       pattern = "SnacksDashboardOpened",
       callback = function()
+        if vim.uv.os_uname().sysname ~= "Darwin" then return end
         vim.defer_fn(function()
           local buf = vim.api.nvim_get_current_buf()
           local ok, err = pcall(function()
