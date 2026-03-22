@@ -16,8 +16,8 @@ function nix-system
   else if is_linux
     set rebuild_cmd "nixos-rebuild"
     switch $hostname_val
-      case personalcomputer 
-        set flake_config "personal_computer"
+      case loonkuter
+        set flake_config "loonkuter"
       case '*'
         echo "Unknown Linux hostname: $hostname_val"
         return 1

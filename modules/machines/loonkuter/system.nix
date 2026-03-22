@@ -27,7 +27,7 @@ in
   #   ];
   # };
 
-  networking.hostName = "personal_computer";
+  networking.hostName = "loonkuter";
 
   time.timeZone = "America/New_York";
 

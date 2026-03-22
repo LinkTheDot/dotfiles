@@ -94,7 +94,7 @@
     {
       homeConfigurations = {
         "workmac" = mkHome { name = "macbook"; system = "aarch64-darwin"; };
-        "looank" = mkHome { name = "personal_computer"; system = "x86_64-linux"; };
+        "looank" = mkHome { name = "loonkuter"; system = "x86_64-linux"; };
       };
 
       darwinConfigurations = {
@@ -102,17 +102,17 @@
       };
 
       nixosConfigurations = {
-        "personal_computer" = nixpkgs.lib.nixosSystem {
+        "loonkuter" = nixpkgs.lib.nixosSystem {
           system = "x86_64-linux";
           modules = [
             nixos-wsl.nixosModules.default
             # ./modules/system/nixos/default.nix <- Clean this and switch to this default
-            ./modules/machines/personal_computer/system.nix
+            ./modules/machines/loonkuter/system.nix
           ];
           specialArgs = {
             inherit inputs;
             userConfig = mkUserConfig { system = "x86_64-linux"; };
-            systemConfig = mkSystemConfig "personal_computer";
+            systemConfig = mkSystemConfig "loonkuter";
             sourceRoot = self;
           };
         };
