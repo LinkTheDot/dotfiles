@@ -173,39 +173,37 @@ return {
       pattern = "SnacksDashboardOpened",
       callback = function()
         if vim.uv.os_uname().sysname ~= "Darwin" then return end
-        vim.defer_fn(function()
-          local buf = vim.api.nvim_get_current_buf()
-          local ok, err = pcall(function()
-            require("snacks").image.placement.new(
-              buf,
-              vim.fn.expand("~/.config/assets/nvim_header.png"),
-              {
-                pos = { 1, 0 },
-                auto_resize = true,
-                on_update_pre = function(p)
-                  local ns =
-                    vim.api.nvim_create_namespace("snacks.image")
-                  vim.api.nvim_buf_clear_namespace(p.buf, ns, 0, -1)
-                  local state = p:state()
-                  local w = state.loc.width
-                  local h = state.loc.height
-                  local win_h = vim.api.nvim_win_get_height(0)
-                  local win_w = vim.api.nvim_win_get_width(0)
-                  p.opts.pos = {
-                    math.max(1, math.floor((win_h - h) / 2)),
-                    math.max(0, math.floor((win_w - w) / 2)),
-                  }
-                end,
-              }
-            )
-          end)
-          if not ok then
-            vim.notify(
-              "Dashboard image error: " .. tostring(err),
-              vim.log.levels.ERROR
-            )
-          end
-        end, 200)
+        local buf = vim.api.nvim_get_current_buf()
+        local ok, err = pcall(function()
+          require("snacks").image.placement.new(
+            buf,
+            vim.fn.expand("~/.config/assets/nvim_header.png"),
+            {
+              pos = { 1, 0 },
+              auto_resize = true,
+              on_update_pre = function(p)
+                local ns =
+                  vim.api.nvim_create_namespace("snacks.image")
+                vim.api.nvim_buf_clear_namespace(p.buf, ns, 0, -1)
+                local state = p:state()
+                local w = state.loc.width
+                local h = state.loc.height
+                local win_h = vim.api.nvim_win_get_height(0)
+                local win_w = vim.api.nvim_win_get_width(0)
+                p.opts.pos = {
+                  math.max(1, math.floor((win_h - h) / 2)),
+                  math.max(0, math.floor((win_w - w) / 2)),
+                }
+              end,
+            }
+          )
+        end)
+        if not ok then
+          vim.notify(
+            "Dashboard image error: " .. tostring(err),
+            vim.log.levels.ERROR
+          )
+        end
       end,
     })
   end,
