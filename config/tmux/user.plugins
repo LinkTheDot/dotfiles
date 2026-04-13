@@ -1,7 +1,6 @@
 # vim: ft=tmux
 
 # plugins
-set -g @plugin 'endoze/tmux#add-overrides-for-all-colors'
 set -g @plugin 'tmux-plugins/tmux-sensible'
 set -g @plugin 'tmux-plugins/tmux-resurrect'
 set -g @plugin 'tmux-plugins/tmux-continuum'

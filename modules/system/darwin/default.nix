@@ -28,6 +28,7 @@ in
     dock.mru-spaces = false;
     finder.AppleShowAllExtensions = true;
     finder.AppleShowAllFiles = true;
+    finder.CreateDesktop = false;
     finder.FXPreferredViewStyle = "icnv";
     screencapture.location = "~/Pictures/screenshots";
     LaunchServices.LSQuarantine = false;
