@@ -28,7 +28,24 @@
       nixpkgsFor = forAllSystems (system: import nixpkgs {
         inherit system;
         config.allowUnfree = true;
-        overlays = [ nur.overlays.default ];
+        overlays = [
+          nur.overlays.default
+          (final: prev: {
+            claude-code = prev.claude-code.overrideAttrs (old: rec {
+              version = "2.1.92";
+              src = prev.fetchzip {
+                url = "https://registry.npmjs.org/@anthropic-ai/claude-code/-/claude-code-${version}.tgz";
+                hash = "sha256-CLLCtVK3TeXFZ8wBnRRHNc2MoUt7lTdMJwz8sZHpkFM=";
+              };
+              npmDeps = prev.fetchNpmDeps {
+                name = "claude-code-${version}-npm-deps";
+                inherit src;
+                postPatch = old.postPatch;
+                hash = "sha256-izy3dQProZIdUF5Z11fvGQOm/TBcWGhDK8GvNs8gG5E=";
+              };
+            });
+          })
+        ];
       });
 
       userInfo = {

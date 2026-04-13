@@ -8,6 +8,9 @@
       enable = true;
       dates = "weekly";
     };
+    daemon.settings = {
+      insecure-registries = [ "homelab:30005" ];
+    };
   };
 
   # Allow Docker containers to communicate with host services

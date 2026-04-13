@@ -10,11 +10,19 @@
   imports = [
     ../../home/meta/cli.nix
     ../../home/meta/gui-linux.nix
+    ../../home/common/mysql.nix
   ];
+
+  programs.mysql.enable = true;
 
   home.packages = with pkgs; [
     claude-code
     file
+    # mycli declares sqlglot==27.* but nixpkgs-unstable has 28.x; relax the constraint since it works fine
+    (mycli.overridePythonAttrs (old: {
+      nativeBuildInputs = (old.nativeBuildInputs or []) ++ [ python3Packages.pythonRelaxDepsHook ];
+      pythonRelaxDeps = [ "sqlglot" ];
+    }))
     ollama-cuda
     vmtouch
     slack

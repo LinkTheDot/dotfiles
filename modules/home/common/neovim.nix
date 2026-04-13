@@ -15,8 +15,8 @@
     lua-language-server
     marksman
     nil
-    nodePackages.bash-language-server
-    nodePackages.typescript-language-server
+    bash-language-server
+    typescript-language-server
     roslyn-ls
     pyright
     taplo

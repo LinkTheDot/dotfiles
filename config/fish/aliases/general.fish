@@ -1,16 +1,25 @@
 alias attach "tmux attach-session -c ~/Projects -t"
-alias c 'clear'
-alias cat bat
-alias edotfiles "pushd ~/.dotfiles; $EDITOR .; popd"
-alias fixterm "infocmp $TERM | sed -E 's/kbs=^[hH]/kbs=\\\177/' > $TERM.ti; tic $TERM.ti; rm $TERM.ti"
 alias k 'kubectl'
-alias kns 'kubens'
-alias kcx 'kubectx'
 alias ls lsd
-alias mod "git status --porcelain | sed -ne 's/^ M //p'"
 alias proj 'cd ~/Projects'
-alias r "echo 'Reloading ~/.config/fish/config.fish'; source ~/.config/fish/config.fish"
-alias server 'ruby -run -e httpd . -p 8080'
-alias tf 'tail -f'
 alias vim nvim
-alias whereami 'curl http://remote-ip.herokuapp.com'
+
+alias strt='~/projects; tmux'
+alias notepad='~/projects/notepad; vim notepad'
+
+alias :qa='exit'
+
+alias cr='cargo run'
+alias cb='cargo build'
+alias ct='cargo test --all'
+alias cre='cargo run --example'
+alias ctp='cargo test -- --nocapture'
+alias cclip='cargo clippy'
+alias ctclip='cargo clippy --tests --all'
+
+alias ttsql='mycli -h $HOMELAB_ADDRESS -P 30000 -uroot -ppassword -D twitch_tracker_db'
+alias ksql='mysql -h $HOMELAB_ADDRESS -P 30000 -uroot -ppassword -D twitch_tracker_db'
+
+alias pclaude="CLAUDE_CONFIG_DIR=~/.claude-personal claude"
+alias wclaude="CLAUDE_CONFIG_DIR=~/.claude-work claude"
+

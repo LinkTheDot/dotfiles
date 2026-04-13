@@ -13,7 +13,7 @@ function nix-home
     end
   else if is_linux
     switch $hostname_val
-      case personal_computer 
+      case loonkuter
         set flake_config "looank"
       case '*'
         echo "Unknown Linux hostname: $hostname_val"

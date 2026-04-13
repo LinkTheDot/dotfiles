@@ -42,9 +42,10 @@
     natscli
     ngrok
     nix-diff
-    nodePackages.npm
+    nodejs
     openssl
     pgcli
+    sea-orm-cli
     sops
     terraform
     tldr

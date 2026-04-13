@@ -2,11 +2,6 @@ local M = {}
 
 local map = vim.keymap.set
 
-vim.lsp.handlers["workspace/diagnostic/refresh"] = function(_, _, ctx)
-  local ns = vim.lsp.diagnostic.get_namespace(ctx.client_id)
-  vim.diagnostic.reset(ns)
-  return true
-end
 
 M.capabilities = vim.lsp.protocol.make_client_capabilities()
 

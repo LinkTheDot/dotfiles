@@ -12,6 +12,7 @@ in
   imports = [
     ./hardware-configuration.nix
     ../../system/meta/cli-nixos.nix
+    ../../system/nixos/docker.nix
   ];
 
   # services.dnsmasq-resolver.enable = true;

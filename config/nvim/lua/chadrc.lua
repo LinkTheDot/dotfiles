@@ -115,15 +115,15 @@ local options = {
       {
         txt = "  Find File",
         keys = "<C-t>",
-        cmd = ":lua require('telescope.builtin').find_files({ find_command = { 'rg', '--files' } })",
+        cmd = ":lua require('snacks').picker.files({ find_command = { 'rg', '--files' } })",
       },
       {
         txt = "󱔗  Recent Files",
         keys = ", f o",
-        cmd = ":lua require('telescope.builtin').oldfiles({prompt_title='Recent Files', only_cwd=true})",
+        cmd = ":lua require('snacks').picker.recent({ filter = { cwd = true } })",
       },
-      { txt = "󰈭  Find Word", keys = ", f a", cmd = "Telescope live_grep" },
-      { txt = "  Bookmarks", keys = ", b m", cmd = "Telescope marks" },
+      { txt = "󰈭  Find Word", keys = ", f a", cmd = ":lua require('snacks').picker.grep()" },
+      { txt = "  Bookmarks", keys = ", s m", cmd = ":lua require('snacks').picker.marks({ filter = { cwd = true } })" },
       { txt = "  Themes", keys = ", t h", cmd = "Telescope themes" },
       {
         txt = "  Settings",

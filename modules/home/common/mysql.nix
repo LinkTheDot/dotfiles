@@ -7,8 +7,8 @@ let
   mysqlBaseDir = "${config.home.homeDirectory}/.local/share/mysql";
   mysqlDataDir = "${mysqlBaseDir}/data";
   mysqlBin = "${pkgs.mysql84}/bin";
-  mysqlSocketPath = if isDarwin then "/tmp/mysql.sock" else "/run/user/\${UID}/mysql.sock";
-  mysqlxSocketPath = if isDarwin then "/tmp/mysqlx.sock" else "/run/user/\${UID}/mysqlx.sock";
+  mysqlSocketPath = if isDarwin then "/tmp/mysql.sock" else "${mysqlBaseDir}/mysql.sock";
+  mysqlxSocketPath = if isDarwin then "/tmp/mysqlx.sock" else "${mysqlBaseDir}/mysqlx.sock";
 in
 {
   options.programs.mysql = {
@@ -20,7 +20,7 @@ in
 
     runAtLoad = lib.mkOption {
       type = lib.types.bool;
-      default = lib.mkDefault true;
+      default = true;
       description = "Start MySQL at boot";
     };
   };
@@ -77,7 +77,8 @@ in
       };
     };
 
-    home.activation.initMysqlDataDir = lib.hm.dag.entryAfter [ "writeBoundry" ] ''
+    home.activation.initMysqlDataDir = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
+      mkdir -p ${mysqlBaseDir}
       if [[ ! -d "${mysqlDataDir}" ]]; then
         mkdir -p ${mysqlDataDir}
         ${mysqlBin}/mysqld --initialize-insecure --datadir=${mysqlDataDir}
