@@ -103,6 +103,9 @@
           "browser.showQuitWarning" = false;
           "browser.warnOnQuit" = false;
 
+          # Don't exit fullscreen on Escape - let the page handle the key
+          "full-screen-api.exit-on.escape" = false;
+
           # Startup optimization settings
           "browser.sessionstore.restore_on_demand" = true; # Don't load all tabs at once
           "browser.sessionstore.restore_pinned_tabs_on_demand" = true; # Lazy load pinned tabs

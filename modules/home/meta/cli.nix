@@ -22,6 +22,8 @@
 
   home.packages = with pkgs; [
     awscli2
+    cargo-expand
+    cargo-llvm-lines
     chafa
     chromedriver
     docker

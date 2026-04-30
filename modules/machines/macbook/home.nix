@@ -6,7 +6,7 @@
     ../../home/meta/gui-darwin.nix
   ];
 
-  home.packages = with pkgs; [ tokei tsx ];
+  home.packages = with pkgs; [ mold tokei tsx ];
 
   programs.mysql = {
     enable = false;
